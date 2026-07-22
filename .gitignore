@@ -1,0 +1,6 @@
+*
+!*/
+!/.gitignore
+!development.config.toml
+!prompt-suites/**
+prompt-suites/**/.DS_Store

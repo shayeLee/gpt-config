@@ -1,0 +1,29 @@
+# Shared development profile. Use it with `codex -p development` in the CLI.
+# Architect is loaded from its canonical Markdown source as the model instruction set.
+# The desktop app uses the same setting from ~/.codex/config.toml.
+model_instructions_file = "~/.codex/prompt-suites/development/AGENTS.md"
+
+[agents]
+max_threads = 3
+max_depth = 1
+job_max_runtime_seconds = 1200
+
+[agents.coder]
+description = "在受限范围内实施、调试和验证最小改动。"
+nickname_candidates = ["Coder", "Implementer"]
+config_file = "~/.codex/prompt-suites/development/agents/Coder.toml"
+
+[agents.lite]
+description = "快速完成需求、目标文件和验收方式明确的局部低风险改动。"
+nickname_candidates = ["Lite"]
+config_file = "~/.codex/prompt-suites/development/agents/Lite.toml"
+
+[agents.reviewer]
+description = "只读审查变更，识别正确性、安全性和兼容性风险。"
+nickname_candidates = ["Reviewer", "CodeReviewer"]
+config_file = "~/.codex/prompt-suites/development/agents/Reviewer.toml"
+
+[agents.rescue]
+description = "仅在反复失败、低信心根因分析或明确第二意见时进行只读诊断。"
+nickname_candidates = ["Rescue", "Diagnostician"]
+config_file = "~/.codex/prompt-suites/development/agents/Rescue.toml"
