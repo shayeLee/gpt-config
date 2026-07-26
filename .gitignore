@@ -4,3 +4,6 @@
 !development.config.toml
 !prompt-suites/**
 prompt-suites/**/.DS_Store
+.tmp/
+memories/
+vendor_imports/
