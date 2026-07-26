@@ -10,6 +10,10 @@ const rootPromptPath = resolve(suiteRoot, "AGENTS.md");
 const rootProfilePath = resolve(codexHome, "development.config.toml");
 const rootProfileHeader = `# Shared development profile. Use it with \`codex -p development\` in the CLI.\n# Architect is loaded from its canonical Markdown source as the model instruction set.\n# The desktop app uses the same setting from ~/.codex/config.toml.\nmodel_instructions_file = "~/.codex/prompt-suites/development/AGENTS.md"\n`;
 const roles = ["Coder", "Lite", "Reviewer", "Rescue"];
+const builtinOverrides = [
+  { name: "default", model: "gpt-5.6-luna", effort: "medium" },
+  { name: "worker", model: "gpt-5.6-luna", effort: "high" },
+];
 const issues = [];
 
 function report(path, message) {
@@ -57,6 +61,28 @@ function validateRoleConfig(role, configPath, config) {
   }
 }
 
+function validateBuiltinOverride(agent, configPath, config) {
+  const requiredLines = [
+    `name = "${agent.name}"`,
+    `model = "${agent.model}"`,
+    `model_reasoning_effort = "${agent.effort}"`,
+  ];
+  if (agent.sandbox) {
+    requiredLines.push(`sandbox_mode = "${agent.sandbox}"`);
+  }
+
+  for (const line of requiredLines) {
+    if (!config.includes(line)) {
+      report(configPath, `must contain: ${line}`);
+    }
+  }
+  for (const key of ["description", "developer_instructions"]) {
+    if (!new RegExp(`^${key}\\s*=`, "m").test(config)) {
+      report(configPath, `missing required ${key}`);
+    }
+  }
+}
+
 if (process.argv.length !== 2) {
   console.error("Usage: validate-model-instruction-links.mjs");
   process.exitCode = 2;
@@ -84,6 +110,14 @@ if (process.argv.length !== 2) {
     }
     if (config !== undefined) {
       validateRoleConfig(role, configPath, config);
+    }
+  }
+
+  for (const agent of builtinOverrides) {
+    const configPath = resolve(codexHome, "agents", `${agent.name}.toml`);
+    const config = await readText(configPath, `${agent.name} built-in override`);
+    if (config !== undefined) {
+      validateBuiltinOverride(agent, configPath, config);
     }
   }
 

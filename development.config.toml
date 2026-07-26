@@ -4,7 +4,6 @@
 model_instructions_file = "~/.codex/prompt-suites/development/AGENTS.md"
 
 [agents]
-max_concurrent_threads_per_session = 3
 max_depth = 1
 job_max_runtime_seconds = 1200
 

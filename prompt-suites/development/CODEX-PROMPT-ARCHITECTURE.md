@@ -58,6 +58,9 @@ model_instructions_file = "~/.codex/prompt-suites/development/AGENTS.md"
 ~/.codex/
 ├── config.toml                             # Desktop 的全局 Architect model_instructions_file
 ├── development.config.toml                 # CLI development profile；指向同一 Architect 源
+├── agents/
+│   ├── default.toml                         # 覆盖内置 default 的通用兜底配置
+│   └── worker.toml                          # 覆盖内置 worker 的常规执行配置
 └── prompt-suites/development/
     ├── AGENTS.md                            # Architect 的唯一维护源
     ├── agents/
@@ -77,14 +80,16 @@ model_instructions_file = "~/.codex/prompt-suites/development/AGENTS.md"
 | 角色 | 维护源 | 运行时配置 | 模型 | Sandbox | 职责 |
 | --- | --- | --- | --- | --- | --- |
 | Architect | `AGENTS.md` | `~/.codex/config.toml` 的 `model_instructions_file` | 由当前根任务决定 | 根任务运行时决定 | 证据、设计、委派、验收；不直接写入。 |
-| Coder | `agents/Coder.md` | `agents/Coder.toml` 的 `model_instructions_file` | `gpt-5.6-luna` | `workspace-write` | 在受限委派范围内实施、调试和验证。 |
+| Coder | `agents/Coder.md` | `agents/Coder.toml` 的 `model_instructions_file` | `gpt-5.6-sol` | `workspace-write` | 根因、范围或安全方案不明的复杂、跨模块、高风险实施。 |
 | Lite | `agents/Lite.md` | `agents/Lite.toml` 的 `model_instructions_file` | `gpt-5.4-mini` | `workspace-write` | 仅处理需求、目标文件和验收明确的局部、可逆、低风险快速改动；范围扩张、不确定或定向验证失败时交回 Architect 改派 Coder。 |
 | Reviewer | `agents/Reviewer.md` | `agents/Reviewer.toml` 的 `model_instructions_file` | `gpt-5.6-sol` | `read-only` | 只读代码审查。 |
 | Rescue | `agents/Rescue.md` | `agents/Rescue.toml` 的 `model_instructions_file` | `gpt-5.6-sol` | `read-only` | 反复失败或低信心根因分析的只读第二意见。 |
+| worker | `~/.codex/agents/worker.toml` | 同名自定义配置覆盖内置 worker | `gpt-5.6-luna` | 继承父任务 | 目标、范围和验收已明确的常规有边界执行。 |
+| default | `~/.codex/agents/default.toml` | 同名自定义配置覆盖内置 default | `gpt-5.6-luna` | 继承父任务 | 没有专属角色匹配时的一般性兜底。 |
 
 Child TOML 中的 `sandbox_mode` 是子代理期望的配置；实际可写范围仍受宿主任务的沙箱和审批策略限制。
 
-Architect 依据任务路由写入执行者：仅当需求、目标文件和验收明确，且改动局部、可逆、低风险并无跨模块、依赖、迁移、公共 API、认证/授权、并发、性能或数据影响时使用 Lite；其他实现任务（包括复杂、调查型、跨模块和日常编码）使用 Coder。Lite 不自行委派；它报告范围扩张、不确定性或定向验证失败后，由 Architect 重新评估并在适当时改派 Coder。
+Architect 依据任务路由写入执行者：仅当需求、目标文件和验收明确，且改动局部、可逆、低风险并无跨模块、依赖、迁移、公共 API、认证/授权、并发、性能或数据影响时使用 Lite；问题、范围和验收已明确的常规实施使用 worker；根因、范围或安全方案不明，或涉及复杂、跨模块、高风险或设计取舍时使用 Coder。Lite 和 worker 不自行委派；它们报告范围扩张、不确定性或定向验证失败后，由 Architect 重新评估并在适当时改派 Coder。
 
 ## 多代理运行时策略
 
@@ -114,7 +119,7 @@ codex -p development
 
 1. 只编辑 Markdown 维护源，例如 `AGENTS.md`、`agents/Coder.md` 或 `agents/Lite.md`。
 2. 同步对应的 `reviews/*-bilingual-review.md`：每段英文原文必须紧接中文审查译文。
-3. 只读校验各角色 TOML 是否仍直接引用对应 Markdown，以及 development CLI profile 的固定 Architect 路径和 `[agents]` 配置：
+3. 只读校验各角色 TOML 是否仍直接引用对应 Markdown、worker/default 覆盖配置是否完整，以及 development CLI profile 的固定 Architect 路径和 `[agents]` 配置：
 
    ```sh
    node ~/.codex/prompt-suites/development/scripts/validate-model-instruction-links.mjs
