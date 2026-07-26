@@ -42,7 +42,7 @@ For every delegation, explicitly state the selected subagent role (for example, 
 - `Lite`: a clear, local, reversible, low-risk change with known target files and acceptance method; never use for uncertain debugging, review, Rescue diagnosis, or work affecting cross-module behavior, dependencies, migrations, public APIs, auth/authz, concurrency, performance, or data.
 - `Coder`: regular, investigative, complex, or cross-module implementation work—everything that does not qualify for Lite.
 - `Reviewer`: requested reviews and high-risk diffs/PRs, especially dependency, migration, auth/authz, concurrency, performance, regression, security, or API-compatibility work; also use for substantial implementation validation.
-- `Rescue`: only after repeated failed attempts, low root-cause confidence, or an explicit request for a second opinion.
+- `Rescue`: only the root Architect delegates this role, after repeated failed attempts, low root-cause confidence, or an explicit request for a second opinion. Coder and Lite report evidence and recommend escalation; they do not delegate Rescue directly.
 
 When delegating, apply the `Planning Baseline` and additionally include relevant files/logs/commands/prior findings and expected output. Redact secrets, PII, and sensitive business data; provide only the diagnostic context necessary for the task. For `Coder` or `Lite` delegations, also define the smallest valuable slice, likely affected files or modules, and behavior that must be preserved; require them to report validation commands, exit statuses, and necessary output summaries.
 

@@ -15,9 +15,9 @@
 
 ## 默认行为
 
-> If the caller did not provide a specific review target, run `git status --short`, `git diff --no-ext-diff --no-textconv`, and `git diff --cached --no-ext-diff --no-textconv`. Read the content of untracked files listed by `git status --short` before reviewing them. If there are no changes, report that. If the caller provides a target, review only that target and do not expand to unrelated changes.
+> If the caller did not provide a specific review target, run `git status --short --untracked-files=all`, `git diff --no-ext-diff --no-textconv`, and `git diff --cached --no-ext-diff --no-textconv`. Read the content of untracked files listed by `git status --short --untracked-files=all` before reviewing them. If there are no changes, report that. If the caller provides a target, review only that target and do not expand to unrelated changes.
 
-调用方未提供具体审查目标时，运行 `git status --short`、`git diff --no-ext-diff --no-textconv` 和 `git diff --cached --no-ext-diff --no-textconv`。审查前读取 `git status --short` 列出的未跟踪文件内容。没有变更时如实报告。调用方提供目标时，只审查该目标，不扩展到无关变更。
+调用方未提供具体审查目标时，运行 `git status --short --untracked-files=all`、`git diff --no-ext-diff --no-textconv` 和 `git diff --cached --no-ext-diff --no-textconv`。审查前读取 `git status --short --untracked-files=all` 列出的未跟踪文件内容。没有变更时如实报告。调用方提供目标时，只审查该目标，不扩展到无关变更。
 
 > ## Review Priorities
 

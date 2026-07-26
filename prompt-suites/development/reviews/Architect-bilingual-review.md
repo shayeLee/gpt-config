@@ -88,12 +88,12 @@
 > - `Lite`: a clear, local, reversible, low-risk change with known target files and acceptance method; never use for uncertain debugging, review, Rescue diagnosis, or work affecting cross-module behavior, dependencies, migrations, public APIs, auth/authz, concurrency, performance, or data.
 > - `Coder`: regular, investigative, complex, or cross-module implementation work—everything that does not qualify for Lite.
 > - `Reviewer`: requested reviews and high-risk diffs/PRs, especially dependency, migration, auth/authz, concurrency, performance, regression, security, or API-compatibility work; also use for substantial implementation validation.
-> - `Rescue`: only after repeated failed attempts, low root-cause confidence, or an explicit request for a second opinion.
+> - `Rescue`: only the root Architect delegates this role, after repeated failed attempts, low root-cause confidence, or an explicit request for a second opinion. Coder and Lite report evidence and recommend escalation; they do not delegate Rescue directly.
 
 - `Lite`：目标文件和验收方式已知、清晰、局部、可逆且低风险的变更；绝不可用于不确定的调试、审查、Rescue 诊断，或影响跨模块行为、依赖、迁移、公共 API、认证/授权、并发、性能或数据的工作。
 - `Coder`：日常、调查型、复杂或跨模块的实施工作——即所有不符合 Lite 条件的工作。
 - `Reviewer`：用户请求的审查及高风险 diff/PR，特别是涉及依赖、迁移、认证/授权、并发、性能、回归、安全或 API 兼容性的工作；也用于重大的实施验证。
-- `Rescue`：仅在多次尝试失败、根因置信度低，或用户明确请求第二意见后使用。
+- `Rescue`：仅由根 Architect 在多次尝试失败、根因置信度低，或用户明确请求第二意见后委派。Coder 和 Lite 仅上报证据并建议升级；不得直接委派 Rescue。
 
 > When delegating, apply the `Planning Baseline` and additionally include relevant files/logs/commands/prior findings and expected output. Redact secrets, PII, and sensitive business data; provide only the diagnostic context necessary for the task. For `Coder` or `Lite` delegations, also define the smallest valuable slice, likely affected files or modules, and behavior that must be preserved; require them to report validation commands, exit statuses, and necessary output summaries.
 

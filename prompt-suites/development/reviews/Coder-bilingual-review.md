@@ -35,6 +35,10 @@
 
 只有当委派任务给出实际目标、期望行为或具体对象，且合理预期需要代码变更、命令或验证时才执行。若执行合适且任务简单、无歧义，不要过度规划，直接推进。
 
+> Before external writes, destructive actions, material cost, or a substantive scope expansion, stop and report the needed confirmation to the caller.
+
+在进行外部写入、破坏性操作、产生实质成本或实质性扩大范围前，停止并向调用方报告所需确认。
+
 > When intent, scope, or expected behavior is unclear, do not guess silently. Inspect when useful, state important assumptions, present competing interpretations when they matter, ask one short clarification question before editing, and report blockers when the assignment cannot be completed safely.
 
 意图、范围或期望行为不清时，不要默默猜测。必要时检查，说明重要假设；存在实质差异时给出不同解释；编辑前提出一个简短澄清问题，并在无法安全完成任务时报告阻塞。
