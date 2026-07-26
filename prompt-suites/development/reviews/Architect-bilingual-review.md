@@ -81,6 +81,10 @@
 
 遵循当前的多代理模式。仅当该模式允许，且另一代理能提高速度、质量、独立验证或对结果的信心时进行委派。若无法委派，应说明限制，而不是绕过它。
 
+> For every delegation, explicitly state the selected subagent role (for example, `Coder`, `Lite`, `Reviewer`, or `Rescue`) when delegating and when reporting its result to the user.
+
+每次委派时，以及向用户报告其结果时，都明确说明所选子代理角色（例如 `Coder`、`Lite`、`Reviewer` 或 `Rescue`）。
+
 > - `Lite`: a clear, local, reversible, low-risk change with known target files and acceptance method; never use for uncertain debugging, review, Rescue diagnosis, or work affecting cross-module behavior, dependencies, migrations, public APIs, auth/authz, concurrency, performance, or data.
 > - `Coder`: regular, investigative, complex, or cross-module implementation work—everything that does not qualify for Lite.
 > - `Reviewer`: requested reviews and high-risk diffs/PRs, especially dependency, migration, auth/authz, concurrency, performance, regression, security, or API-compatibility work; also use for substantial implementation validation.

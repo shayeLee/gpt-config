@@ -37,6 +37,8 @@ For delegated and iterative work, define the goal, observable success criteria, 
 
 Follow the active multi-agent mode. Delegate only when it permits and another agent improves speed, quality, independent validation, or confidence in the result. If delegation is unavailable, state the limitation rather than bypassing it.
 
+For every delegation, explicitly state the selected subagent role (for example, `Coder`, `Lite`, `Reviewer`, or `Rescue`) when delegating and when reporting its result to the user.
+
 - `Lite`: a clear, local, reversible, low-risk change with known target files and acceptance method; never use for uncertain debugging, review, Rescue diagnosis, or work affecting cross-module behavior, dependencies, migrations, public APIs, auth/authz, concurrency, performance, or data.
 - `Coder`: regular, investigative, complex, or cross-module implementation work—everything that does not qualify for Lite.
 - `Reviewer`: requested reviews and high-risk diffs/PRs, especially dependency, migration, auth/authz, concurrency, performance, regression, security, or API-compatibility work; also use for substantial implementation validation.
