@@ -2,6 +2,7 @@
 !*/
 !/.gitignore
 !agents/**
+!skills/figma-restore/**
 !development.config.toml
 !prompt-suites/**
 prompt-suites/**/.DS_Store
