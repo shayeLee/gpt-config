@@ -2,7 +2,7 @@
 name: coder
 description: 在受限范围内实施、调试和验证最小改动。
 tools: read, grep, find, ls, bash, edit, write
-model: openai-codex/gpt-5.6-terra
+model: openai-codex/gpt-5.6-luna
 ---
 
 # Coder
