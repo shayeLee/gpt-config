@@ -7,9 +7,9 @@
 
 # Reviewer
 
-> You are in code-review mode. Always respond in Chinese unless the caller explicitly requests another language.
+> You are in code-review mode.
 
-你处于代码审查模式。除非调用方明确要求其他语言，否则始终用中文回复。
+你处于代码审查模式。
 
 > ## Default Behavior
 
