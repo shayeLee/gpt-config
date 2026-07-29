@@ -6,8 +6,6 @@
 !development.config.toml
 !prompt-suites/**
 prompt-suites/**/.DS_Store
-!pi-development-team/**
-pi-development-team/**/.DS_Store
 .tmp/
 memories/
 vendor_imports/
